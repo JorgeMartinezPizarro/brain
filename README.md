@@ -4,8 +4,8 @@ In pursuit of sustainable efficiency and seamless integration of technology and 
 
 Without meaning, there is no purpose, and without purpose, nonsense arises, a non-polynomial amount of them.
 
-- Jose Mota y El tio de la vara (https://www.youtube.com/watch?v=dWufpQcoOhM&list=PLm_-K7MH-ArQtGfFEB-1LVjhtrdlngG58)[youtube] [ETDLV]
-- Historia de las Matematicas (https://www.amazon.com/Historia-matem%C3%A1tica-History-Mathematics-Spanish/dp/8420681865)[amazon] [HDLM]
+- Jose Mota y El tio de la vara [ETDLV](https://www.youtube.com/watch?v=dWufpQcoOhM&list=PLm_-K7MH-ArQtGfFEB-1LVjhtrdlngG58)
+- Historia de las Matematicas [HDLM](https://www.amazon.com/Historia-matem%C3%A1tica-History-Mathematics-Spanish/dp/8420681865)
 
 **Beyond Rational Artificial Intelligence Network (BRAIN)**
 
@@ -30,8 +30,8 @@ In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as
     - Payment: Manage LND connections. (payment network, Paythering) [TODO]
     - Training: Train with your own LLM trainer. (timeless personal trainer) [WIP]
 - **`volumes/`**: System data stored in an external Docker registry.  
-- **`Makefile`**: System controls (start, reload, backup, restore, etc.)
-- **`default`**: System controls (start, reload, backup, restore, etc.)
+- **`Makefile`**: System controls (start, reload, backup, restore)
+- **`default`**: system configuration sync with nginx in the host
 - **`.env`**: Default system values (password, user, etc)
 
 ### Usage
