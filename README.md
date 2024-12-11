@@ -1,13 +1,18 @@
 ## Abstract
 
+**Beyond Rational Artificial Intelligence Network (BRAIN)**
+
 In pursuit of sustainable efficiency and seamless integration of technology and humanity. It promotes AI - supported evolutionary efficiency.
 
 Without meaning, there is no purpose, and without purpose, nonsense arises, a non-polynomial amount of them.
 
+## References
+
 - Jose Mota y El tio de la vara (https://www.youtube.com/watch?v=dWufpQcoOhM&list=PLm_-K7MH-ArQtGfFEB-1LVjhtrdlngG58)[youtube] [ETDLV]
+
 - Historia de las Matematicas (https://www.amazon.com/Historia-matem%C3%A1tica-History-Mathematics-Spanish/dp/8420681865)[amazon] [HDLM]
 
-**Beyond Rational Artificial Intelligence Network (BRAIN)**
+## Descrition
 
 In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as an innovative initiative designed to bridge STEAM (education) with "steam" (technology and games) using cutting-edge tools and methodologies. Its goal is to foster a sustainable balance between human creativity and technological progress, addressing real-world challenges through:
 
@@ -34,7 +39,7 @@ In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as
 - **`default`**: System controls (start, reload, backup, restore, etc.)
 - **`.env`**: Default system values (password, user, etc)
 
-### Usage
+## Usage
 
 `make start`: start the individual or organization BRAIN
 
@@ -46,7 +51,7 @@ In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as
 
 By installing tools such as **Nextcloud** and **Signal** on your devices, you can keep files synchronized for personal or institutional use and communicate within different networks, school and family for example.  
 
-#### Civil Institutions
+### Civil Institutions
 
 For institutional usage, we highly recommend enabling lightweight payments through Lightning Network, allowing fast and affordable transactions using older devices, such as smartphones. This simplifies integration and promotes financial inclusion without the need for expensive machines.  
 
