@@ -35,8 +35,8 @@ In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as
     - Payment: Manage LND connections. (payment network, Paythering) [TODO]
     - Training: Train with your own LLM trainer. (timeless personal trainer) [WIP]
 - **`volumes/`**: System data stored in an external Docker registry.  
-- **`Makefile`**: System controls (start, reload, backup, restore, etc.)
-- **`default`**: System controls (start, reload, backup, restore, etc.)
+- **`Makefile`**: System controls (start, reload, backup, restore)
+- **`default`**: system configuration sync with nginx in the host
 - **`.env`**: Default system values (password, user, etc)
 
 ## Usage
