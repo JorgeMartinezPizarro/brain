@@ -12,7 +12,7 @@ Without meaning, there is no purpose, and without purpose, nonsense arises, a no
 
 - Historia de las Matematicas (https://www.amazon.com/Historia-matem%C3%A1tica-History-Mathematics-Spanish/dp/8420681865)
 
-## Descrition
+## Description
 
 In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as an innovative initiative designed to bridge STEAM (education) with "steam" (technology and games) using cutting-edge tools and methodologies. Its goal is to foster a sustainable balance between human creativity and technological progress, addressing real-world challenges through:
 
