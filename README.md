@@ -8,9 +8,9 @@ Without meaning, there is no purpose, and without purpose, nonsense arises, a no
 
 ## References
 
-- Jose Mota y El tio de la vara (https://www.youtube.com/watch?v=dWufpQcoOhM&list=PLm_-K7MH-ArQtGfFEB-1LVjhtrdlngG58)[youtube] [ETDLV]
+- Jose Mota y El tio de la vara (https://www.youtube.com/watch?v=dWufpQcoOhM&list=PLm_-K7MH-ArQtGfFEB-1LVjhtrdlngG58)
 
-- Historia de las Matematicas (https://www.amazon.com/Historia-matem%C3%A1tica-History-Mathematics-Spanish/dp/8420681865)[amazon] [HDLM]
+- Historia de las Matematicas (https://www.amazon.com/Historia-matem%C3%A1tica-History-Mathematics-Spanish/dp/8420681865)
 
 ## Descrition
 
