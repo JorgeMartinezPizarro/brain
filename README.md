@@ -64,7 +64,7 @@ We believe in collaboration and shared purpose. Whether you're a programmer, edu
 Locally, we always see a circle—closed, comprehensible, and complete.
 
 
-## Open issues:
+## Open issues [TODO]:
 
 - Discuss using Signal and Bridges to matrix or try out Element.
 - Discuss if lnd is good enough or we need other implementations.
