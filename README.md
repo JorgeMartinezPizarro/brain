@@ -68,4 +68,4 @@ Locally, we always see a circle—closed, comprehensible, and complete.
 
 - Discuss using Signal and Bridges to matrix or try out Element.
 - Discuss if lnd is good enough or we need other implementations.
-- Discuss how we can get meaning from the Paythering exammple in INFO.md
+- Discuss how we can get meaning from the Paythering example (see INFO.md)
