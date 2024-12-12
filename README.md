@@ -63,6 +63,8 @@ We believe in collaboration and shared purpose. Whether you're a programmer, edu
 
 Locally, we always see a circle—closed, comprehensible, and complete.
 
+Licensed as a HaaT – created by ideniox
+
 
 ## Open issues [TODO]:
 
