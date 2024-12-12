@@ -6,17 +6,11 @@ In pursuit of sustainable efficiency and seamless integration of technology and 
 
 Without meaning, there is no purpose, and without purpose, nonsense arises, a non-polynomial amount of them.
 
-## References
-
-- Jose Mota y El tio de la vara (https://www.youtube.com/watch?v=dWufpQcoOhM&list=PLm_-K7MH-ArQtGfFEB-1LVjhtrdlngG58)
-
-- Historia de las Matematicas (https://www.amazon.com/Historia-matem%C3%A1tica-History-Mathematics-Spanish/dp/8420681865)
-
 ## Description
 
 In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as an innovative initiative designed to bridge STEAM (education) with "steam" (technology and games) using cutting-edge tools and methodologies. Its goal is to foster a sustainable balance between human creativity and technological progress, addressing real-world challenges through:
 
-- **LND**: Connection to local payment systems. (*money*)
+- **LND**: Connection to local payment systems. (*money*) (TODO: discuss it deeply)
 - **BTC**: Integration with major nodes in the global payment system. (*gold*)
 - **LLM**: Language Models for contextual understanding (*personal trainers*)
 - **SQL**: Structured data management (*information*)
@@ -26,8 +20,8 @@ In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as
 ## Structure
 
 - **`docker-compose:`** 
-  - **`- lnd`**: Local networks on the Global Payment Network.
-  - **`- matrix`**: Human network. Use signal to connect devices
+  - **`- lnd`**: Local networks on the Global Payment Network. [TODO]
+  - **`- matrix`**: Human network. Use signal to connect devices 
   - **`- nextcloud`**: Profile and desktop. Use file sync to connect devices.
   - **`- wordpress`**: Shared experiences. 
   - **`- nextjs`**: A UI with 2 tabs:
@@ -68,3 +62,10 @@ We believe in collaboration and shared purpose. Whether you're a programmer, edu
 ## Note
 
 Locally, we always see a circle—closed, comprehensible, and complete.
+
+
+## Open issues:
+
+- Discuss using Signal and Bridges to matrix or try out Element.
+- Discuss if lnd is good enough or we need other implementations.
+- Discuss how we can get meaning from the Paythering exammple in INFO.md
