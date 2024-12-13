@@ -2,13 +2,17 @@
 
 **Beyond Rational Artificial Intelligence Network (BRAIN)**
 
-In pursuit of sustainable efficiency and seamless integration of technology and humanity. It promotes AI - supported evolutionary efficiency.
+In pursuit of sustainable efficiency and seamless integration of technology and humanity. It promotes AI - SUPPORTED evolutionary efficiency.
 
 Without meaning, there is no purpose, and without purpose, nonsense arises, a non-polynomial amount of them.
 
 ## Description
 
 In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as an innovative initiative designed to bridge STEAM (education) with "steam" (technology and games) using cutting-edge tools and methodologies. Its goal is to foster a sustainable balance between human creativity and technological progress, addressing real-world challenges through:
+
+It also develops the idea of Tim Berners Lee, SOLID, the idea to create a Planetary File System, my idea is to combine existing technologies to create efficiency from his original ideas. That way, we integrate the cloud services with our own devices in a proper and efficient way.
+
+It uses the following ideas:
 
 - **LND**: Connection to local payment systems. (*money*) (TODO: discuss it deeply)
 - **BTC**: Integration with major nodes in the global payment system. (*gold*)
@@ -17,7 +21,7 @@ In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as
 - **RDF**: Semantic connections and relationships (*knowledge*)
 - **ADN**: A metaphor for human evolution and interconnection (*people*)
 
-## Structure
+## Folder structure
 
 - **`docker-compose:`** 
   - **`- lnd`**: Local networks on the Global Payment Network. [TODO]
