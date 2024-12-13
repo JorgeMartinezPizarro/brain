@@ -24,10 +24,10 @@ In a world full of cutting-edge technologies and breaking-news, BRAIN emerges as
   - **`- matrix`**: Human network. Use signal to connect devices 
   - **`- nextcloud`**: Profile and desktop. Use file sync to connect devices.
   - **`- wordpress`**: Shared experiences. 
-  - **`- nextjs`**: A UI with 2 tabs:
+  - **`- nextjs`**: A UI with 3 tabs:
     - Monitoring: Display all server stats. (system info) [DONE]
     - Payment: Manage LND connections. (payment network, Paythering) [TODO]
-    - Training: Train with your own LLM trainer. (timeless personal trainer) [WIP]
+    - Training: Train with your own LLM trainer. (timeless personal trainer) [DONE]
 - **`volumes/`**: System data stored in an external Docker registry.  
 - **`Makefile`**: System controls (start, reload, backup, restore)
 - **`default`**: system configuration sync with nginx in the host
@@ -68,8 +68,8 @@ Licensed as a HaaT – created by ideniox
 
 ## Open issues [TODO]:
 
-- Discuss using Signal and Bridges to matrix or try out Element.
+- Discuss about using Signal and Bridges to matrix or try out Element.
 - Discuss if lnd is good enough or we need other implementations.
-- Discuss how we can get meaning from the Paythering example (see INFO.md)
+- Discuss how we can get meaning from the Paythering example (see [INFO.md](https://github.com/JorgeMartinezPizarro/brain/blob/main/INFO.md))
 
 Created by [ideniox](https://ideniox.com) and licensed as a [HaaT](https://github.com/JorgeMartinezPizarro/haat)
