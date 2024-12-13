@@ -71,3 +71,5 @@ Licensed as a HaaT – created by ideniox
 - Discuss using Signal and Bridges to matrix or try out Element.
 - Discuss if lnd is good enough or we need other implementations.
 - Discuss how we can get meaning from the Paythering example (see INFO.md)
+
+Created by ideniox, licensed as a [HaaT](https://github.com/JorgeMartinezPizarro/haat)
