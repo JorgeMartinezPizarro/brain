@@ -72,4 +72,4 @@ Licensed as a HaaT – created by ideniox
 - Discuss if lnd is good enough or we need other implementations.
 - Discuss how we can get meaning from the Paythering example (see INFO.md)
 
-Created by ideniox, licensed as a [HaaT](https://github.com/JorgeMartinezPizarro/haat)
+Created by [ideniox](https://ideniox.com) and licensed as a [HaaT](https://github.com/JorgeMartinezPizarro/haat)
