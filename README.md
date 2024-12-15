@@ -63,10 +63,6 @@ We believe in collaboration and shared purpose. Whether you're a programmer, edu
 2. Join discussions on community-driven platforms.  
 3. Share ideas to continue building bridges between humanity and technology.  
 
-## Note
-
-Locally, we always see a circle—closed, comprehensible, and complete.
-
 ## Open issues [TODO]:
 
 - Discuss about using Signal and Bridges to matrix or try out Element.
@@ -75,6 +71,10 @@ Locally, we always see a circle—closed, comprehensible, and complete.
 - Try out the core lighting implementation.
 - Try out Signal Bridges to Matrix.
 - Try out elementX and matrix 2 propolals
-  
+
+## Note
+
+Locally, we always see a circle—closed, comprehensible, and complete.
+
 Created by [ideniox](https://ideniox.com) and licensed as a [HaaT](https://github.com/JorgeMartinezPizarro/haat)
 
