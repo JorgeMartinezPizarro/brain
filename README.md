@@ -73,5 +73,7 @@ Locally, we always see a circle—closed, comprehensible, and complete.
 - Discuss if lnd is good enough or we need other implementations.
 - Discuss how we can get meaning from the Paythering example (see [INFO.md](https://github.com/JorgeMartinezPizarro/brain/blob/main/INFO.md))
 - Try out the core lighting implementation.
+
+  
 Created by [ideniox](https://ideniox.com) and licensed as a [HaaT](https://github.com/JorgeMartinezPizarro/haat)
 
