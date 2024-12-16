@@ -67,7 +67,7 @@ We believe in collaboration and shared purpose. Whether you're a programmer, edu
 
 - Discuss about using Signal and Bridges to matrix or try out Element.
 - Discuss if lnd is good enough or we need other implementations.
-- Discuss how we can get meaning from the Paythering example (see [INFO.md](https://github.com/JorgeMartinezPizarro/brain/blob/main/INFO.md))
+- Discuss how we can get meaning from the Paythering example (see [INFO.md](https://github.com/JorgeMartinezPizarro/brain/blob/main/INFO.md)).
 - Try out the core lighting implementation.
 - Try out Signal Bridges to Matrix.
 - Try out elementX and matrix 2 propolals
@@ -77,4 +77,3 @@ We believe in collaboration and shared purpose. Whether you're a programmer, edu
 Locally, we always see a circle—closed, comprehensible, and complete.
 
 Created by [ideniox](https://ideniox.com) and licensed as a [HaaT](https://github.com/JorgeMartinezPizarro/haat)
-
