@@ -71,6 +71,7 @@ We believe in collaboration and shared purpose. Whether you're a programmer, edu
 - Try out the core lighting implementation.
 - Try out Signal Bridges to Matrix.
 - Try out elementX and matrix 2 propolals
+- Add the code.
 
 ## Note
 
