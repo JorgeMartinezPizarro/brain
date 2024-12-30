@@ -1,46 +1,58 @@
-# TODO: Add lnd or core-lightning container
-# TODO: Add my custom yet private nextjs container
+# TODO: Add lnd or core-lightning container.
+# TODO: Finish the bookmarks project.
 # The nextjs container provides:
 # - GPT TRAINER UI
 # - LND NETWORK MANAGEMENT UI [TODO]
-# - System status overview
+# - System status overview [TODO]
+
 services:
-  wordpress:
+  wordpress: ## Wordpress CMS
     image: wordpress:6.7.1
     restart: always
     ports:
-      - 1000:80
+      - "1000:80" 
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpresspassword
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_HOME', 'https://home.ideniox.com');
+        define('WP_SITEURL', 'https://home.ideniox.com');
+    depends_on:
+      - mysql
     volumes:
       - ./volumes/wordpress:/var/www/html
-    environment:
-      WORDPRESS_DB_PASSWORD: example
-  mysql:
-    image: mysql:8.3.0
+
+  mysql: ## DB for wordpress
+    image: mysql:5.7
     restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpresspassword
     volumes:
       - ./volumes/mysql:/var/lib/mysql
-    expose:
-      - "3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-  db:
+
+  mariadb: ## DB for nextcloud
     image: mariadb:10.6.20
     restart: always
     command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
     volumes:
-      - ./volumes/db:/var/lib/mysql
+      - ./volumes/mariadb:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=example
       - MYSQL_PASSWORD=example
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-  nextcloud:
+  nextcloud: ## Nextcloud PHP CMS
     image: nextcloud:30.0.4
     restart: always
     ports:
       - 1001:80
     links:
-      - db
+      - mariadb
     volumes:
       - ./volumes/nextcloud:/var/www/html
       - /var/www/.well_known:/var/www/.well_known
@@ -48,14 +60,14 @@ services:
       - MYSQL_PASSWORD=example
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-      - MYSQL_HOST=db
+      - MYSQL_HOST=mariadb
   redis:
     image: redis:alpine
     restart: unless-stopped
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - ./volumes/redis:/data
-  bookmarks:
+  bookmarks: ## A customiced view in nextjs involving GPT lightning network and Nextcloud Forms to create views
     image: jorgemartinezpizarro/bookmarks:latest
     restart: always
     ports:

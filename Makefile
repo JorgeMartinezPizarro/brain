@@ -34,3 +34,11 @@ save:
 	make resume
 	docker push $(DOCKER_HUB_USER)/$(DOCKER_HUB_PROJECT):$(PROJECT_NAME)-latest
 	docker push $(DOCKER_HUB_USER)/$(DOCKER_HUB_PROJECT):$(PROJECT_NAME)-${DATE}
+test:
+	echo ${DOCKER_HUB_USER}
+logs:
+	cd src && docker compose -p $(PROJECT_NAME) logs -f
+clean:
+	make stop
+	rm ./src/volumes/* -rf
+	make start
