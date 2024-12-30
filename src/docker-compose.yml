@@ -1,11 +1,10 @@
-# Add the services here, wordpress, nextcloud, matrix and nextjs 
+# TODO: Add lnd or core-lightning container
+# TODO: Add my custom yet private nextjs container
 # The nextjs container provides:
-# - GPT TRAINER UI [WIP]
+# - GPT TRAINER UI
 # - LND NETWORK MANAGEMENT UI [TODO]
-# - System status overview [WIP]
-
+# - System status overview
 services:
-
   wordpress:
     image: wordpress:6.7.1
     restart: always
@@ -15,7 +14,6 @@ services:
       - ./volumes/wordpress:/var/www/html
     environment:
       WORDPRESS_DB_PASSWORD: example
-
   mysql:
     image: mysql:8.3.0
     restart: always
