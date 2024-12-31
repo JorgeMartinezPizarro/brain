@@ -2,5 +2,5 @@ FROM alpine
 
 WORKDIR /root/volumes/
 
-COPY volumes brain
+COPY ./data/volumes brain
 

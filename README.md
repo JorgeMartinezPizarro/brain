@@ -46,6 +46,106 @@ By installing tools like Nextcloud and Signal on your devices, you can:
 - Synchronize files seamlessly for personal or institutional use.
 - Communicate across networks like school, family, or work.
 
+### Advanced Setup:
+
+To start the services it is recommended to setup nginx or apache2 as follows:
+
+```
+## nextcloud login as a login umbrella for the nextjs container
+
+# dev cloud
+server {
+        server_name your.cloud.domain;
+        client_max_body_size 20G;
+        client_body_buffer_size 400M;
+        location ^~ /.well-known {
+                # The rules in this block are an adaptation of the rules
+                # in `.htaccess` that concern `/.well-known`.
+
+                location = /.well-known/carddav { return 301 /remote.php/dav/; }
+                location = /.well-known/caldav  { return 301 /remote.php/dav/; }
+
+                location /.well-known/acme-challenge    { try_files $uri $uri/ =404; }
+                location /.well-known/pki-validation    { try_files $uri $uri/ =404; }
+
+                # Let Nextcloud's API for `/.well-known` URIs handle all other
+                # requests by passing them to the front-end controller.
+                return 301 /index.php$request_uri;
+        }
+        
+        location / {
+                client_max_body_size 20G;
+                client_body_buffer_size 400M;
+                proxy_pass http://localhost:1001; 
+                proxy_set_header Host $host;
+                # Allow only requests from the same domain (no external origins)
+	        add_header 'Access-Control-Allow-Origin' "$scheme://$http_host" always;
+
+        	# Block external cross-origin requests by not allowing any other headers/methods
+	        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+	        add_header 'Access-Control-Allow-Headers' 'Origin, X-Requested-With, Content-Type, Accept' always;
+	        add_header 'Access-Control-Allow-Credentials' 'true' always;
+	
+		add_header 'Strict-Transport-Security' "max-age=15552000; includeSubDomains";
+        }
+        location /bookmarks {
+                client_max_body_size 20G;
+                client_body_buffer_size 400M;
+		if ($http_cookie !~* "nc_session_id") {
+                        return 302 https://your.cloud.domain/login;
+                }
+                proxy_pass http://localhost:1002;
+                proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+
+	        # Forward original host and other headers
+	        proxy_set_header Host $host;	
+		proxy_set_header X-Real-IP $remote_addr;
+	        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+
+	        # Ensure WebSocket timeout settings
+		proxy_read_timeout 86400s;
+	        proxy_send_timeout 86400s;
+
+		# Allow only requests from the same domain (no external origins)
+	        add_header 'Access-Control-Allow-Origin' "$scheme://$http_host" always;
+
+        	# Block external cross-origin requests by not allowing any other headers/methods
+	        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+	        add_header 'Access-Control-Allow-Headers' 'Origin, X-Requested-With, Content-Type, Accept' always;
+	        add_header 'Access-Control-Allow-Credentials' 'true' always;
+	
+	}
+        location = /custom_502.html {
+		root /var/www/html;  # Path to your custom HTML file
+		internal;
+        }
+
+        error_page 502 /custom_502.html;
+}
+
+# dev blog
+server {
+	server_name your.blog.domain;
+	location /.well-known {
+		alias /var/www/.well_known;
+	}
+	location / {
+		proxy_pass http://localhost:1000;
+	        proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+	}
+    location = /custom_502.html {
+        root /var/www/html;  # Path to your custom HTML file
+        internal;
+    }
+
+    error_page 502 /custom_502.html;
+	listen 80;
+}
+```
+
 ## Civil Institutions
 For institutions, BRAIN offers:
 - **Financial Inclusion**: Enable lightweight payments with Lightning Network.
@@ -75,6 +175,7 @@ We believe in collaboration and shared purpose. Whether you're a programmer, edu
 - Test and refine the Core Lightning implementation.
 - Experiment with Matrix 2.0 proposals and ElementX.
 - Try out nextcloud FORMS and ELEMENT plugins to manage data and user connections via web.
+- Add usage of default to map the services
 
 ## Note
 

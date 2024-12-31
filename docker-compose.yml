@@ -22,7 +22,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ./volumes/wordpress:/var/www/html
+      - ./data/volumes/wordpress:/var/www/html
 
   mysql: ## DB for wordpress
     image: mysql:5.7
@@ -33,14 +33,14 @@ services:
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpresspassword
     volumes:
-      - ./volumes/mysql:/var/lib/mysql
+      - ./data/volumes/mysql:/var/lib/mysql
 
   mariadb: ## DB for nextcloud
     image: mariadb:10.6.20
     restart: always
     command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
     volumes:
-      - ./volumes/mariadb:/var/lib/mysql
+      - ./data/volumes/mariadb:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=example
       - MYSQL_PASSWORD=example
@@ -54,7 +54,7 @@ services:
     links:
       - mariadb
     volumes:
-      - ./volumes/nextcloud:/var/www/html
+      - ./data/volumes/nextcloud:/var/www/html
       - /var/www/.well_known:/var/www/.well_known
     environment:
       - MYSQL_PASSWORD=example
@@ -66,9 +66,9 @@ services:
     restart: unless-stopped
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
-      - ./volumes/redis:/data
+      - ./data/volumes/redis:/data
   bookmarks: ## A customiced view in nextjs involving GPT lightning network and Nextcloud Forms to create views
-    image: jorgemartinezpizarro/bookmarks:latest
+    image: jorgemartinezpizarro/bookmarks:latest ## Use fix versions as soon as "bookmarks" is fully released
     restart: always
     ports:
       - ${PORT}:3000
