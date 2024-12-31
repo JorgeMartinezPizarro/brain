@@ -40,5 +40,5 @@ logs:
 	docker compose -p $(PROJECT_NAME) logs -f
 clean:
 	make stop
-	rm ./src/volumes/* -rf
+	rm ./data/volumes/* -rf
 	make start

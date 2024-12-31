@@ -1,9 +1,12 @@
-# TODO: Add lnd or core-lightning container.
+# TODO: move all values to env file: passwords, URLs, users ...
+# TODO: Add lightning network container.
+# TODO: Add matrix container.
 # TODO: Finish the bookmarks project.
 # The nextjs container provides:
 # - GPT TRAINER UI
 # - LND NETWORK MANAGEMENT UI [TODO]
 # - System status overview [TODO]
+# - Customizable examples
 
 services:
   wordpress: ## Wordpress CMS
@@ -76,4 +79,15 @@ services:
       - OPEN_AI_API_KEY=${OPEN_AI_API_KEY}
       - NEXT_PUBLIC_NEXTCLOUD_URL=${NEXT_PUBLIC_NEXTCLOUD_URL}
       - PORT=${PORT}
+
+  #matrix:
+  #  image: matrixdotorg/synapse:latest
+  #  ports:
+  #    - "1357:8008"
+  #  environment:
+  #    - SYNAPSE_SERVER_NAME=matrix.domain.com
+  #  volumes:
+  #    - ./volumes/data:/data
+  #    - ./volumes/media_store:/media_store
+  #  restart: unless-stopped
   
