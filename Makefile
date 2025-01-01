@@ -42,3 +42,11 @@ clean:
 	make stop
 	rm ./data/volumes/* -rf
 	make start
+help:
+	@echo "Usage:"
+	@echo "  make start   - Start the system"
+	@echo "  make stop    - Stop the system"
+	@echo "  make save    - Backup system state to Docker Hub"
+	@echo "  make load    - Restore system from backup"
+	@echo "  make logs    - View system logs"
+	@echo "  make clean   - Clean volumes and restart"
