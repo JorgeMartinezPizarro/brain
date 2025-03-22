@@ -23,10 +23,10 @@ services:
       WORDPRESS_DB_PASSWORD: wordpresspassword
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_CONFIG_EXTRA: |
-        define('WP_HOME', 'https://home.ideniox.com');
-        define('WP_SITEURL', 'https://home.ideniox.com');
-      WORDPRESS_ADMIN_USER: admin  # Usuario de admin inicial
-      WORDPRESS_ADMIN_PASSWORD: password-brain  # Contraseña de admin
+        define('WP_HOME', '${WORDPRESS_SITE_URL}');
+        define('WP_SITEURL', '${WORDPRESS_SITE_URL}'));
+      WORDPRESS_ADMIN_USER: ${WORDPRESS_ADMIN_USER}  # Usuario de admin inicial
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}  # Contraseña de admin
     depends_on:
       - mysql
     volumes:
@@ -70,11 +70,11 @@ services:
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=mariadb
       - OVERWRITEPROTOCOL=https
-      - OVERWRITEHOST=nube.ideniox.com
-      - OVERWRITECLIURL=https://nube.ideniox.com
+      - OVERWRITEHOST=${NEXTCLOUD_DOMAIN}
+      - OVERWRITECLIURL=${NEXT_PUBLIC_NEXTCLOUD_URL}
       - NEXTCLOUD_ADMIN_USER=admin  # Usuario admin inicial
       - NEXTCLOUD_ADMIN_PASSWORD=password-brain  # Contraseña admin inicial
-      - NEXTCLOUD_TRUSTED_DOMAINS=nube.ideniox.com
+      - NEXTCLOUD_TRUSTED_DOMAINS=${NEXTCLOUD_DOMAIN}
   redis:
     image: redis:alpine
     restart: unless-stopped
