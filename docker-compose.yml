@@ -87,7 +87,7 @@ services:
     entrypoint: >
       /bin/sh -c "
       if [ ! -f /data/homeserver.yaml ]; then
-        python -m synapse.app.homeserver --generate-config --server-name matrix.ideniox.com --config-path /data/homeserver.yaml --report-stats=no;
+        python -m synapse.app.homeserver --generate-config --server-name ${MATRIX_URL} --config-path /data/homeserver.yaml --report-stats=no;
       fi;
       python -m synapse.app.homeserver --config-path /data/homeserver.yaml"
     environment:
