@@ -1,22 +1,9 @@
-# TODO: move all values to env file: passwords, URLs, users ...
-# TODO: Add lightning network container.
-# TODO: Finish the bookmarks project.
-# The nextjs container provides:
-# - GPT TRAINER UI
-# - LND NETWORK MANAGEMENT UI [TODO]
-# - System status overview [TODO]
-# - Gaming examples
-# Overview of IPs to be used in the nginx reverse proxy:
-# 1000 - WORDPRESS
-# 1001 - NEXCLOUD
-# 1002 - NEXTJS
-# 1004 - MATRIX
 services:
   wordpress: ## Wordpress CMS
     image: wordpress:6.7.1
     restart: always
     ports:
-      - 1000:80
+      - ${WORDPRESS_PORT}:80
     environment:
       WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_USER: wordpress
@@ -58,7 +45,7 @@ services:
     image: nextcloud:31.0.0
     restart: always
     ports:
-      - 1001:80
+      - ${NEXTCLOUD_PORT}:80
     links:
       - mariadb
     volumes:
@@ -72,8 +59,8 @@ services:
       - OVERWRITEPROTOCOL=https
       - OVERWRITEHOST=${NEXTCLOUD_DOMAIN}
       - OVERWRITECLIURL=${NEXT_PUBLIC_NEXTCLOUD_URL}
-      - NEXTCLOUD_ADMIN_USER=admin  # Usuario admin inicial
-      - NEXTCLOUD_ADMIN_PASSWORD=password-brain  # Contraseña admin inicial
+      - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
+      - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
       - NEXTCLOUD_TRUSTED_DOMAINS=${NEXTCLOUD_DOMAIN}
   redis:
     image: redis:alpine
