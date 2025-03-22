@@ -87,7 +87,6 @@ services:
     ports:
       - ${PORT}:3000
     environment:
-      - OPEN_AI_API_KEY=${OPEN_AI_API_KEY}
       - NEXT_PUBLIC_NEXTCLOUD_URL=${NEXT_PUBLIC_NEXTCLOUD_URL}
       - PORT=${PORT}
   matrix:
