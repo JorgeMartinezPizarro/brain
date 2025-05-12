@@ -37,7 +37,7 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
   nextcloud: ## Nextcloud PHP CMS
-    image: nextcloud:31.0.2
+    image: nextcloud:31.0.4
     restart: always
     ports:
       - ${NEXTCLOUD_PORT}:80
@@ -63,7 +63,7 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - ./data/volumes/redis:/data
-  bookmarks: ## A customiced view in nextjs involving GPT lightning network and Nextcloud Forms to create views
+  bookmarks: ## A customized view in nextjs involving GPT lightning network and Nextcloud Forms to create views
     image: jorgemartinezpizarro/bookmarks:latest ## Use fix versions as soon as "bookmarks" is fully released
     restart: always
     ports:
