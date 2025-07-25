@@ -22,10 +22,15 @@ load:
 	docker cp $(BACKUP_NAME):/root/volumes $(TMP_FOLDER)
 	docker kill $(BACKUP_NAME)
 	docker rm $(BACKUP_NAME)
-	make pause
+	make stop
 	rm ./data/volumes/* -r
 	mv $(TMP_FOLDER)/brain/* ./data/volumes/.
-	make resume
+	chown -R www-data:www-data ./data/volumes/nextcloud
+	find ./data/volumes/nextcloud/ -type d -exec chmod 755 {} \;
+	find ./data/volumes/nextcloud/ -type f -exec chmod 644 {} \;
+	chmod 770 ./data/volumes/nextcloud/data ./data/volumes/nextcloud/config ./data/volumes/nextcloud/custom_apps
+	chmod 660 ./data/volumes/nextcloud/config/config.php
+	make start
 # Restore (TODO: allow select available tags)
 save:
 	make pause
