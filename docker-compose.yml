@@ -37,7 +37,7 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
   nextcloud: ## Nextcloud PHP CMS
-    image: nextcloud:31.0.7
+    image: nextcloud:31.0.8
     restart: always
     ports:
       - ${NEXTCLOUD_PORT}:80
