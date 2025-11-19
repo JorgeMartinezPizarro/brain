@@ -144,6 +144,25 @@ server {
     error_page 502 /custom_502.html;
 	listen 80;
 }
+
+# matrix net 
+server {
+        server_name solvantianet.ideniox.com;
+        location /.well-known {
+                alias /var/www/.well_known;
+        }
+        location / {
+                proxy_pass http://localhost:1007;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+        }
+    location = /custom_502.html {
+        root /var/www/html;  # Path to your custom HTML file
+        internal;
+    }
+
+    error_page 502 /custom_502.html;
+}
 ```
 
 ## Civil Institutions
