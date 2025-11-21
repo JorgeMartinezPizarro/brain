@@ -67,7 +67,7 @@ services:
     image: jorgemartinezpizarro/bookmarks:latest ## Use fix versions as soon as "bookmarks" is fully released
     restart: always
     ports:
-      - ${PORT}:3000
+      - ${PORT}:${PORT}
     environment:
       - NEXTCLOUD_URL=${NEXTCLOUD_URL}
       - PORT=${PORT}
@@ -76,6 +76,8 @@ services:
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
       - NEXTCLOUD_CLIENT_ID=${NEXTCLOUD_CLIENT_ID}
       - NEXTCLOUD_CLIENT_SECRET=${NEXTCLOUD_CLIENT_SECRET}
+    volumes:
+      - /var/www/html:/var/www/html
   matrix:
     image: matrixdotorg/synapse:latest
     ports:
