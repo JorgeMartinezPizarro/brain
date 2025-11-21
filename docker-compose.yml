@@ -69,8 +69,13 @@ services:
     ports:
       - ${PORT}:3000
     environment:
-      - NEXT_PUBLIC_NEXTCLOUD_URL=${NEXT_PUBLIC_NEXTCLOUD_URL}
+      - NEXTCLOUD_URL=${NEXTCLOUD_URL}
       - PORT=${PORT}
+      - SYSTEM_PATH=${SYSTEM_PATH}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXTCLOUD_CLIENT_ID=${NEXTCLOUD_CLIENT_ID}
+      - NEXTCLOUD_CLIENT_SECRET=${NEXTCLOUD_CLIENT_SECRET}
   matrix:
     image: matrixdotorg/synapse:latest
     ports:
