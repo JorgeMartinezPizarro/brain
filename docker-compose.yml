@@ -1,6 +1,6 @@
 services:
   wordpress: ## Wordpress CMS
-    image: wordpress:6.8.3
+    image: wordpress:6.9
     restart: always
     ports:
       - ${WORDPRESS_PORT}:80
@@ -37,7 +37,7 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
   nextcloud: ## Nextcloud PHP CMS
-    image: nextcloud:32.0.2
+    image: nextcloud:32.0.3
     restart: always
     ports:
       - ${NEXTCLOUD_PORT}:80
