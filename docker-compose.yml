@@ -1,6 +1,6 @@
 services:
   wordpress: ## Wordpress CMS
-    image: wordpress:6.9
+    image: wordpress:6.9.1
     restart: always
     ports:
       - ${WORDPRESS_PORT}:80
