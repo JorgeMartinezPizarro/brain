@@ -1,6 +1,6 @@
 services:
   wordpress: ## Wordpress CMS
-    image: wordpress:6.9.1
+    image: wordpress:6.9.4
     restart: always
     ports:
       - ${WORDPRESS_PORT}:80
@@ -95,3 +95,4 @@ services:
     environment:
       - SMTP_PASS=${SMTP_PASS}
       
+

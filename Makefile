@@ -25,6 +25,9 @@ load:
 	make stop
 	rm ./data/volumes/* -r
 	mv $(TMP_FOLDER)/brain/* ./data/volumes/.
+	chown -R www-data:www-data ./data/volumes/wordpress
+	find ./data/volumes/wordpress/ -type d -exec chmod 755 {} \;
+	find ./data/volumes/wordpress/ -type f -exec chmod 644 {} \;
 	chown -R www-data:www-data ./data/volumes/nextcloud
 	find ./data/volumes/nextcloud/ -type d -exec chmod 755 {} \;
 	find ./data/volumes/nextcloud/ -type f -exec chmod 644 {} \;
