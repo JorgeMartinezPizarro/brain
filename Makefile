@@ -6,6 +6,8 @@ TMP_FOLDER := ./data/tmp
 ENV_FILE = .env
 include $(ENV_FILE)
 export $(shell sed 's/=.*//' $(ENV_FILE))
+# DOCKER_REGISTRY is optional: empty uses Docker Hub, or set it to a private registry host
+IMAGE_NAME := $(if $(DOCKER_REGISTRY),$(DOCKER_REGISTRY)/,)$(DOCKER_HUB_USER)/$(DOCKER_HUB_PROJECT)
 # Docker commands
 start:
 	docker compose -p $(PROJECT_NAME) up -d
@@ -18,7 +20,7 @@ resume:
 # Backup (TODO: allow using custom tags)
 load:
 	rm -rf $(TMP_FOLDER)
-	docker run -itd --name $(BACKUP_NAME) $(DOCKER_HUB_USER)/$(DOCKER_HUB_PROJECT):$(PROJECT_NAME)-latest
+	docker run -itd --name $(BACKUP_NAME) $(IMAGE_NAME):$(PROJECT_NAME)-latest
 	docker cp $(BACKUP_NAME):/root/volumes $(TMP_FOLDER)
 	docker kill $(BACKUP_NAME)
 	docker rm $(BACKUP_NAME)
@@ -37,11 +39,11 @@ load:
 # Restore (TODO: allow select available tags)
 save:
 	make pause
-	@echo "Guardando en Docker Hub..."
-	docker build -t $(DOCKER_HUB_USER)/$(DOCKER_HUB_PROJECT):$(PROJECT_NAME)-latest -t $(DOCKER_HUB_USER)/$(DOCKER_HUB_PROJECT):$(PROJECT_NAME)-${DATE} .
+	@echo "Guardando en $(if $(DOCKER_REGISTRY),$(DOCKER_REGISTRY),Docker Hub)..."
+	docker build -t $(IMAGE_NAME):$(PROJECT_NAME)-latest -t $(IMAGE_NAME):$(PROJECT_NAME)-${DATE} .
 	make resume
-	docker push $(DOCKER_HUB_USER)/$(DOCKER_HUB_PROJECT):$(PROJECT_NAME)-latest
-	docker push $(DOCKER_HUB_USER)/$(DOCKER_HUB_PROJECT):$(PROJECT_NAME)-${DATE}
+	docker push $(IMAGE_NAME):$(PROJECT_NAME)-latest
+	docker push $(IMAGE_NAME):$(PROJECT_NAME)-${DATE}
 test:
 	echo ${DOCKER_HUB_USER}
 logs:

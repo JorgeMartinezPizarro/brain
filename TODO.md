@@ -1,2 +1,0 @@
-- include matrix config file and link as a volume
-- move image versions to values file
