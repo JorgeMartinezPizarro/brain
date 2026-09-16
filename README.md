@@ -1,4 +1,6 @@
-# BRAIN (Beyond Rational Artificial Intelligence Network)
+# BRAIN 
+
+Beyond Rational Artificial Intelligence Network
 
 ## Abstract
 BRAIN is a ready-to-use Docker deployment for running your own community infrastructure. It bundles three proven, self-hosted services so you don't have to wire them together yourself:
