@@ -53,6 +53,11 @@ The destination for these images is configurable via `.env`:
 - `DOCKER_HUB_USER` / `DOCKER_HUB_PROJECT` — the image namespace and repository name.
 - `DOCKER_REGISTRY` — leave empty to use Docker Hub, or set it to your private registry host (e.g. `registry.example.com`) to push/pull backups there instead.
 
+To bring a deployment back on a new server:
+1. Clone the repository and put your `.env` back in place. It is not part of the snapshot, so keep a copy somewhere safe.
+2. Log in to the registry if the repository is private: `docker login` (or `docker login registry.example.com`).
+3. Run `make load`. It restores the latest snapshot and starts the stack, no `make start` needed.
+
 ## Reverse Proxy
 To expose the services behind nginx, something like this works as a starting point (adjust domains and upstream ports to match your `.env`):
 
