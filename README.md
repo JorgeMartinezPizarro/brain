@@ -43,6 +43,12 @@ BRAIN ships with a snapshot-based backup system built on Docker images rather th
 - `make save` — pauses the stack, packages `./data/volumes` into a Docker image, and pushes it tagged both `latest` and with today's date.
 - `make load` — pulls the saved image, restores `./data/volumes` from it, and restarts the stack.
 
+Because the whole stack is paused at once, each snapshot captures every service at the same instant. For the databases it is like the power going out everywhere at once, which MySQL and MariaDB are built to recover from.
+
+Keep in mind:
+- **Keep the repository private.** The image contains everything: databases, Nextcloud files and configuration with credentials. Docker Hub creates new repositories as public by default, so create it as private (or change your default visibility) before the first `make save`.
+- **Every snapshot is a full copy.** Storage grows with each dated tag, so prune old tags from time to time.
+
 The destination for these images is configurable via `.env`:
 - `DOCKER_HUB_USER` / `DOCKER_HUB_PROJECT` — the image namespace and repository name.
 - `DOCKER_REGISTRY` — leave empty to use Docker Hub, or set it to your private registry host (e.g. `registry.example.com`) to push/pull backups there instead.
