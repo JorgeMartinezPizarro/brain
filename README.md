@@ -37,7 +37,7 @@ On top of that, BRAIN adds a simple backup system (`make save` / `make load`) th
 
 See `.env.sample` for every configurable value: ports, domains, admin credentials and database credentials.
 
-To rotate passwords, run `make passwords` with the stack running. It generates new random passwords for the WordPress and Nextcloud admin users (`WORDPRESS_ADMIN_USER`, `NEXTCLOUD_ADMIN_USER`) and for both databases, applies them through WP-CLI, `occ` and SQL (no web access needed), writes them to `.env` and recreates the containers. Run `sudo make save` afterwards: older snapshots keep the old passwords.
+To rotate passwords, run `make passwords` with the stack running. It generates new random passwords for the WordPress and Nextcloud admin users (`WORDPRESS_ADMIN_USER`, `NEXTCLOUD_ADMIN_USER`) and for both databases, applies them through WP-CLI, `occ` and SQL (no web access needed), writes them to `.env` and recreates the containers. Only the root passwords in `.env` must match the databases: the app users are reset through root. Run `sudo make save` afterwards: older snapshots keep the old passwords.
 
 ## Backups
 BRAIN ships with a snapshot-based backup system built on Docker images rather than a traditional backup tool, so a full restore is just pulling a tagged image.
