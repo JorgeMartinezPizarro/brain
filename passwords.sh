@@ -4,9 +4,11 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+missing=""
 for v in PROJECT_NAME MYSQL_ROOT_PASSWORD WORDPRESS_DB_USER NEXTCLOUD_DB_ROOT_PASSWORD NEXTCLOUD_DB_USER; do
-	[ -n "${!v:-}" ] || { echo "Missing $v (run it with make passwords)"; exit 1; }
+	[ -n "${!v:-}" ] || missing="$missing $v"
 done
+[ -z "$missing" ] || { echo "Missing or empty in .env:$missing (run it with make passwords)"; exit 1; }
 
 dc() { docker compose -p "$PROJECT_NAME" "$@"; }
 gen() { openssl rand -hex 24; }

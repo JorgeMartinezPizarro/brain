@@ -19,13 +19,17 @@ resume:
 	docker compose -p $(PROJECT_NAME) unpause
 # Backup (TODO: allow using custom tags)
 load:
+	@[ "$$(id -u)" = 0 ] || { echo "Run it as root: sudo make $@"; exit 1; }
+	mkdir -p ./data/volumes
 	rm -rf $(TMP_FOLDER)
+	@docker rm -f $(BACKUP_NAME) >/dev/null 2>&1 || true
+	docker pull $(IMAGE_NAME):$(PROJECT_NAME)-latest
 	docker run -itd --name $(BACKUP_NAME) $(IMAGE_NAME):$(PROJECT_NAME)-latest
 	docker cp $(BACKUP_NAME):/root/volumes $(TMP_FOLDER)
 	docker kill $(BACKUP_NAME)
 	docker rm $(BACKUP_NAME)
 	make stop
-	rm ./data/volumes/* -r
+	rm -rf ./data/volumes/*
 	mv $(TMP_FOLDER)/brain/* ./data/volumes/.
 	chown -R www-data:www-data ./data/volumes/wordpress
 	find ./data/volumes/wordpress/ -type d -exec chmod 755 {} \;
@@ -38,6 +42,7 @@ load:
 	make start
 # Restore (TODO: allow select available tags)
 save:
+	@[ "$$(id -u)" = 0 ] || { echo "Run it as root: sudo make $@"; exit 1; }
 	make pause
 	@echo "Guardando en $(if $(DOCKER_REGISTRY),$(DOCKER_REGISTRY),Docker Hub)..."
 	docker build -t $(IMAGE_NAME):$(PROJECT_NAME)-latest -t $(IMAGE_NAME):$(PROJECT_NAME)-${DATE} .
