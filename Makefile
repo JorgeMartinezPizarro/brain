@@ -52,6 +52,8 @@ clean:
 	make stop
 	rm ./data/volumes/* -rf
 	make start
+passwords:
+	@bash passwords.sh
 help:
 	@echo "Usage:"
 	@echo "  make start   - Start the system"
@@ -60,3 +62,4 @@ help:
 	@echo "  make load    - Restore system from backup"
 	@echo "  make logs    - View system logs"
 	@echo "  make clean   - Clean volumes and restart"
+	@echo "  make passwords - Rotate the database passwords"
