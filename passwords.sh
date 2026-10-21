@@ -58,7 +58,8 @@ sql mariadb "$NEXTCLOUD_DB_ROOT_PASSWORD" "
 	ALTER USER IF EXISTS 'root'@'localhost' IDENTIFIED BY '$nc_root';"
 set_env NEXTCLOUD_DB_PASSWORD "$nc"
 set_env NEXTCLOUD_DB_ROOT_PASSWORD "$nc_root"
-dc exec -T -u www-data nextcloud php occ config:system:set dbpassword --value="$nc"
+# occ needs the database to start: NC_dbpassword overrides the old password still in config.php
+dc exec -T -u www-data -e NC_dbpassword="$nc" nextcloud php occ config:system:set dbpassword --value="$nc"
 
 echo "WordPress admin ($WORDPRESS_ADMIN_USER)..."
 pass=$(gen)
