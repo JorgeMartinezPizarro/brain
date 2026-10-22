@@ -14,13 +14,14 @@ done
 dc() { docker compose -p "$PROJECT_NAME" "$@"; }
 gen() { openssl rand -hex 24; }
 sql() { dc exec -T -e MYSQL_PWD="$2" "$1" mysql -uroot -e "$3"; }
-# WP-CLI in a throwaway container that shares the files and network of the WordPress container
+# WP-CLI in a throwaway container that shares the files and network of the WordPress container.
+# Plugins and themes are skipped: user commands don't need them and heavy ones can exhaust memory.
 wp() {
 	local c; c=$(dc ps -q wordpress)
 	[ -n "$c" ] || { echo "WordPress is not running"; exit 1; }
 	docker run --rm --user 33:33 -e HOME=/tmp --volumes-from "$c" --network "container:$c" \
 		-e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_USER -e WORDPRESS_DB_PASSWORD -e WORDPRESS_DB_NAME \
-		wordpress:cli-php8.3 wp "$@"
+		wordpress:cli-php8.3 wp --skip-plugins --skip-themes "$@"
 }
 # Write the value to .env and to the environment, which docker compose reads first
 set_env() {
@@ -40,18 +41,23 @@ can_login mysql "$MYSQL_ROOT_PASSWORD" MYSQL_ROOT_PASSWORD
 can_login mariadb "$NEXTCLOUD_DB_ROOT_PASSWORD" NEXTCLOUD_DB_ROOT_PASSWORD
 
 wp=$(gen); wp_root=$(gen); nc=$(gen); nc_root=$(gen)
+step() { current="$1"; echo "$1..."; }
+# On failure the containers are still recreated, so they use the passwords already saved in .env
+on_fail() {
+	echo; echo "Recreating containers with the passwords already saved in .env..."; dc up -d
+	echo; echo "FAILED at: $current. Fix the error above and run 'make passwords' again."
+}
 
-echo "WordPress database (mysql)..."
+step "WordPress database (mysql)"
 sql mysql "$MYSQL_ROOT_PASSWORD" "
 	ALTER USER '$WORDPRESS_DB_USER'@'%' IDENTIFIED BY '$wp';
 	ALTER USER IF EXISTS 'root'@'%' IDENTIFIED BY '$wp_root';
 	ALTER USER IF EXISTS 'root'@'localhost' IDENTIFIED BY '$wp_root';"
 set_env WORDPRESS_DB_PASSWORD "$wp"
 set_env MYSQL_ROOT_PASSWORD "$wp_root"
-# From here on, whatever happens, recreate the containers so they use the new .env
-trap 'echo "Recreating containers with the new .env..."; dc up -d' EXIT
+trap on_fail EXIT
 
-echo "Nextcloud database (mariadb)..."
+step "Nextcloud database (mariadb)"
 sql mariadb "$NEXTCLOUD_DB_ROOT_PASSWORD" "
 	ALTER USER '$NEXTCLOUD_DB_USER'@'%' IDENTIFIED BY '$nc';
 	ALTER USER IF EXISTS 'root'@'%' IDENTIFIED BY '$nc_root';
@@ -61,13 +67,13 @@ set_env NEXTCLOUD_DB_ROOT_PASSWORD "$nc_root"
 # occ needs the database to start: NC_dbpassword overrides the old password still in config.php
 dc exec -T -u www-data -e NC_dbpassword="$nc" nextcloud php occ config:system:set dbpassword --value="$nc"
 
-echo "WordPress admin ($WORDPRESS_ADMIN_USER)..."
+step "WordPress admin ($WORDPRESS_ADMIN_USER)"
 pass=$(gen)
 wp user update "$WORDPRESS_ADMIN_USER" --user_pass="$pass" --skip-email
 set_env WORDPRESS_ADMIN_PASSWORD "$pass"
 wp user session destroy "$WORDPRESS_ADMIN_USER" --all
 
-echo "Nextcloud admin ($NEXTCLOUD_ADMIN_USER)..."
+step "Nextcloud admin ($NEXTCLOUD_ADMIN_USER)"
 pass=$(gen)
 dc exec -T -u www-data -e OC_PASS="$pass" nextcloud php occ user:resetpassword --password-from-env "$NEXTCLOUD_ADMIN_USER"
 set_env NEXTCLOUD_ADMIN_PASSWORD "$pass"
@@ -75,4 +81,4 @@ set_env NEXTCLOUD_ADMIN_PASSWORD "$pass"
 trap - EXIT
 echo "Recreating containers with the new .env..."
 dc up -d
-echo "Done. The new passwords are in .env: keep a copy in your password manager and run 'sudo make save'."
+echo; echo "DONE: all 6 passwords rotated and saved in .env. Keep a copy in your password manager and run 'sudo make save'."
