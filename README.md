@@ -61,6 +61,8 @@ To bring a deployment back on a new server:
 3. Run `make load`. It restores the latest snapshot and starts the stack, no `make start` needed.
 
 ## Reverse Proxy
+The services only listen on `127.0.0.1`, so they are reachable through the reverse proxy and not directly as `server-ip:port`. Point nginx to `127.0.0.1`, not `localhost`: `localhost` can resolve to IPv6 `::1`, where nothing listens.
+
 To expose the services behind nginx, something like this works as a starting point (adjust domains and upstream ports to match your `.env`):
 
 ```nginx
@@ -87,7 +89,7 @@ server {
         location / {
                 client_max_body_size 20G;
                 client_body_buffer_size 400M;
-                proxy_pass http://localhost:1001;
+                proxy_pass http://127.0.0.1:1001;
                 proxy_set_header Host $host;
         }
 
@@ -106,7 +108,7 @@ server {
                 alias /var/www/.well_known;
         }
         location / {
-                proxy_pass http://localhost:1000;
+                proxy_pass http://127.0.0.1:1000;
                 proxy_set_header Host $host;
                 proxy_set_header X-Real-IP $remote_addr;
         }
@@ -126,7 +128,7 @@ server {
                 alias /var/www/.well_known;
         }
         location / {
-                proxy_pass http://localhost:1007;
+                proxy_pass http://127.0.0.1:1007;
                 proxy_set_header Host $host;
                 proxy_set_header X-Real-IP $remote_addr;
         }
