@@ -35,15 +35,15 @@ On top of that, BRAIN adds a simple backup system (`make save` / `make load`) th
    make stop
    ```
 
-See `.env.sample` for every configurable value: ports, domains, admin credentials and database credentials.
+See `.env.sample` for every configurable value: data folder, ports, domains, admin credentials and database credentials. All persistent data lives in `DATA_DIR` (by default `/srv/<project>`), outside the repository.
 
 To rotate passwords, run `make passwords` with the stack running. It generates new random passwords for the WordPress and Nextcloud admin users (`WORDPRESS_ADMIN_USER`, `NEXTCLOUD_ADMIN_USER`) and for both databases, applies them through WP-CLI, `occ` and SQL (no web access needed), writes them to `.env` and recreates the containers. Only the root passwords in `.env` must match the databases: the app users are reset through root. Run `sudo make save` afterwards: older snapshots keep the old passwords.
 
 ## Backups
 BRAIN ships with a snapshot-based backup system built on Docker images rather than a traditional backup tool, so a full restore is just pulling a tagged image.
 
-- `make save` — pauses the stack, packages `./data/volumes` into a Docker image, and pushes it tagged both `latest` and with today's date.
-- `make load` — pulls the saved image, restores `./data/volumes` from it, and restarts the stack.
+- `make save` — pauses the stack, packages `$DATA_DIR/volumes` into a Docker image, and pushes it tagged both `latest` and with today's date.
+- `make load` — pulls the saved image, restores `$DATA_DIR/volumes` from it, and restarts the stack.
 
 Because the whole stack is paused at once, each snapshot captures every service at the same instant. For the databases it is like the power going out everywhere at once, which MySQL and MariaDB are built to recover from.
 

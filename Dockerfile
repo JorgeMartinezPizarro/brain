@@ -2,5 +2,5 @@ FROM alpine
 
 WORKDIR /root/volumes/
 
-COPY ./data/volumes brain
-
+# Build context is DATA_DIR (see make save)
+COPY volumes brain

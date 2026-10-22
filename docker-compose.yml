@@ -12,7 +12,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ./data/volumes/wordpress:/var/www/html
+      - ${DATA_DIR:?set DATA_DIR in .env}/volumes/wordpress:/var/www/html
 
   mysql: ## DB for wordpress
     image: mysql:5.7
@@ -23,14 +23,14 @@ services:
       MYSQL_USER: ${WORDPRESS_DB_USER}
       MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
     volumes:
-      - ./data/volumes/mysql:/var/lib/mysql
+      - ${DATA_DIR:?set DATA_DIR in .env}/volumes/mysql:/var/lib/mysql
 
   mariadb: ## DB for nextcloud
     image: mariadb:10.6.20
     restart: always
     command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
     volumes:
-      - ./data/volumes/mariadb:/var/lib/mysql
+      - ${DATA_DIR:?set DATA_DIR in .env}/volumes/mariadb:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${NEXTCLOUD_DB_ROOT_PASSWORD}
       - MYSQL_PASSWORD=${NEXTCLOUD_DB_PASSWORD}
@@ -44,7 +44,7 @@ services:
     links:
       - mariadb
     volumes:
-      - ./data/volumes/nextcloud:/var/www/html
+      - ${DATA_DIR:?set DATA_DIR in .env}/volumes/nextcloud:/var/www/html
       - /var/www/.well_known:/var/www/.well_known
     environment:
       - MYSQL_PASSWORD=${NEXTCLOUD_DB_PASSWORD}
@@ -62,14 +62,14 @@ services:
     restart: unless-stopped
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
-      - ./data/volumes/redis:/data
+      - ${DATA_DIR:?set DATA_DIR in .env}/volumes/redis:/data
   matrix:
     image: matrixdotorg/synapse:v1.161.0
     ports:
       - 127.0.0.1:${MATRIX_PORT}:8008
     volumes:
-      - ./data/volumes/data:/data
-      - ./data/volumes/media_store:/media_store
+      - ${DATA_DIR:?set DATA_DIR in .env}/volumes/data:/data
+      - ${DATA_DIR:?set DATA_DIR in .env}/volumes/media_store:/media_store
     restart: unless-stopped
     entrypoint: >
       /bin/sh -c "
