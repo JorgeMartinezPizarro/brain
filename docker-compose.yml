@@ -28,7 +28,8 @@ services:
   mariadb: ## DB for nextcloud
     image: mariadb:10.6.20
     restart: always
-    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    # No binlog: nothing replicates and backups copy the whole folder; with it on, binlog.* grew without limit
+    command: --transaction-isolation=READ-COMMITTED
     volumes:
       - ${DATA_DIR:?set DATA_DIR in .env}/volumes/mariadb:/var/lib/mysql
     environment:
