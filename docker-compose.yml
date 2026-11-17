@@ -15,7 +15,7 @@ services:
       - ${DATA_DIR:?set DATA_DIR in .env}/volumes/wordpress:/var/www/html
 
   mysql: ## DB for wordpress
-    image: mysql:8.4.13
+    image: mysql:9.7.4
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -40,7 +40,7 @@ services:
       # After a version bump, upgrade the system tables on start (backs them up first)
       - MARIADB_AUTO_UPGRADE=1
   nextcloud: ## Nextcloud PHP CMS
-    image: nextcloud:34.0.6
+    image: nextcloud:35.0.3
     restart: always
     ports:
       - 127.0.0.1:${NEXTCLOUD_PORT}:80
