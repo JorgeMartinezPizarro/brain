@@ -13,7 +13,8 @@ done
 
 dc() { docker compose -p "$PROJECT_NAME" "$@"; }
 gen() { openssl rand -hex 24; }
-sql() { dc exec -T -e MYSQL_PWD="$2" "$1" mysql -uroot -e "$3"; }
+# The client is called mysql in the mysql image and mariadb in the mariadb image (11+ has no mysql)
+sql() { dc exec -T -e MYSQL_PWD="$2" "$1" "$1" -uroot -e "$3"; }
 # WP-CLI in a throwaway container that shares the files and network of the WordPress container.
 # Plugins and themes are skipped: user commands don't need them and heavy ones can exhaust memory.
 wp() {
@@ -34,7 +35,7 @@ read -rp "Rotate the database and admin passwords of '$PROJECT_NAME'? [y/N] " an
 
 # Only the root passwords in .env must be right: the app users are reset through root
 can_login() {
-	dc exec -T -e MYSQL_PWD="$2" "$1" mysql -uroot -e "SELECT 1" >/dev/null 2>&1 ||
+	sql "$1" "$2" "SELECT 1" >/dev/null 2>&1 ||
 		{ echo "Can't log in to $1 as root with $3 from .env (wrong password, or the database is still starting)"; exit 1; }
 }
 can_login mysql "$MYSQL_ROOT_PASSWORD" MYSQL_ROOT_PASSWORD
@@ -49,10 +50,11 @@ on_fail() {
 }
 
 step "WordPress database (mysql)"
+# caching_sha2_password (MySQL 8+): accounts from 5.7 use mysql_native_password, disabled in 8.4 and gone in 9.x
 sql mysql "$MYSQL_ROOT_PASSWORD" "
-	ALTER USER '$WORDPRESS_DB_USER'@'%' IDENTIFIED BY '$wp';
-	ALTER USER IF EXISTS 'root'@'%' IDENTIFIED BY '$wp_root';
-	ALTER USER IF EXISTS 'root'@'localhost' IDENTIFIED BY '$wp_root';"
+	ALTER USER '$WORDPRESS_DB_USER'@'%' IDENTIFIED WITH caching_sha2_password BY '$wp';
+	ALTER USER IF EXISTS 'root'@'%' IDENTIFIED WITH caching_sha2_password BY '$wp_root';
+	ALTER USER IF EXISTS 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY '$wp_root';"
 set_env WORDPRESS_DB_PASSWORD "$wp"
 set_env MYSQL_ROOT_PASSWORD "$wp_root"
 trap on_fail EXIT

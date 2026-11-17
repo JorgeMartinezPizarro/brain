@@ -15,7 +15,7 @@ services:
       - ${DATA_DIR:?set DATA_DIR in .env}/volumes/wordpress:/var/www/html
 
   mysql: ## DB for wordpress
-    image: mysql:5.7
+    image: mysql:8.0.46
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -26,7 +26,7 @@ services:
       - ${DATA_DIR:?set DATA_DIR in .env}/volumes/mysql:/var/lib/mysql
 
   mariadb: ## DB for nextcloud
-    image: mariadb:10.6.28
+    image: mariadb:10.11.19
     restart: always
     # No binlog: nothing replicates and backups copy the whole folder; with it on, binlog.* grew without limit
     command: --transaction-isolation=READ-COMMITTED
@@ -37,6 +37,8 @@ services:
       - MYSQL_PASSWORD=${NEXTCLOUD_DB_PASSWORD}
       - MYSQL_DATABASE=${NEXTCLOUD_DB_NAME}
       - MYSQL_USER=${NEXTCLOUD_DB_USER}
+      # After a version bump, upgrade the system tables on start (backs them up first)
+      - MARIADB_AUTO_UPGRADE=1
   nextcloud: ## Nextcloud PHP CMS
     image: nextcloud:34.0.6
     restart: always
